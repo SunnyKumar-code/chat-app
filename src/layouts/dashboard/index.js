@@ -63,7 +63,7 @@ const DashboardLayout = () => {
 
   const theme = useTheme();
   console.log(theme);
-const {onToggleMode}= useSettings();
+  const { onToggleMode } = useSettings();
 
   return (
     <>
@@ -85,49 +85,78 @@ const {onToggleMode}= useSettings();
             </Box>
             <Stack sx={{ width: "max-content" }} direction="column" alignItems="center" spacing={3}>
               {Nav_Buttons.map((el) => (
-                <Box 
-                  key={el.index}
-                  sx={selected === el.index ? {
-                    backgroundColor: theme.palette.primary.main,
-                    borderRadius: 1.5
-                  } : {}}
-                >
-                  <IconButton 
+                selected === el.index ?
+                  <Box
+                    key={el.index}
+                    sx={{
+                      backgroundColor: theme.palette.primary.main,
+                      borderRadius: 1.5
+                    }}
+                  >
+                    <IconButton
+                      onClick={() => setSelected(el.index)}
+                      sx={{
+                        width: "max-content",
+                        color: "#fff"
+                      }}
+                    >
+                      {el.icon}
+                    </IconButton>
+                  </Box>
+                  :
+
+                  <IconButton
                     onClick={() => setSelected(el.index)}
-                    sx={{ 
-                      width: "max-content", 
-                      color: selected === el.index ? "#fff" : "#000" 
+                    sx={{
+                      width: "max-content",
+                      color: theme.palette.mode === "light" ? "#000" : theme.palette.text.primary
                     }}
                   >
                     {el.icon}
                   </IconButton>
-                </Box>
+
               ))}
               <Divider sx={{ width: "48px" }} />
-              <Box 
-                sx={selected === 3 ? {
-                  backgroundColor: theme.palette.primary.main,
-                  borderRadius: 1.5
-                } : {}}
-              >
-                <IconButton
-                  onClick={() => setSelected(3)}
-                  sx={{ 
-                    width: "max-content", 
-                    color: selected === 3 ? "#fff" : "#000" 
-                  }}
-                >
-                  <Gear />
-                </IconButton>
-              </Box>
+              {
+                selected === 3 ?
+                  <Box
+                    sx={selected === 3 ? {
+                      backgroundColor: theme.palette.primary.main,
+                      borderRadius: 1.5
+                    } : {}}
+                  >
+                    <IconButton
+                      onClick={() => setSelected(3)}
+                      sx={{
+                        width: "max-content",
+                        color: "#fff"
+                      }}
+                    >
+                      <Gear />
+                    </IconButton>
+                  </Box>
+                  :
+                  <IconButton
+                    onClick={() => setSelected(3)}
+                    sx={{
+                      width: "max-content",
+                      color: theme.palette.mode === "light" ? "#000" : theme.palette.text.primary
+                    }}
+                  >
+                    <Gear />
+                  </IconButton>
+              }
+
+
+
             </Stack>
           </Stack>
-          
+
           <Stack spacing={4}>
-            <AntSwitch onChange={()=>{
+            <AntSwitch onChange={() => {
               onToggleMode()
-            }}  defaultChecked/>
-            <Avatar   src={ "https://i.pravatar.cc/300"}/>
+            }} defaultChecked />
+            <Avatar src={"https://i.pravatar.cc/300"} />
           </Stack>
         </Stack>
       </Box>
